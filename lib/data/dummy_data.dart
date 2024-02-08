@@ -57,8 +57,8 @@ const availableCategories = [
   ),
 ];
 
-var dummyMeals = [
-  Meal(
+final dummyMeals = [
+  const Meal(
     id: 'm1',
     categories: [
       'c1',
@@ -91,7 +91,6 @@ var dummyMeals = [
     isVegan: true,
     isVegetarian: true,
     isLactoseFree: true,
-    isFavorite: false,
   ),
   Meal(
     id: 'm2',
@@ -120,7 +119,6 @@ var dummyMeals = [
     isVegan: false,
     isVegetarian: false,
     isLactoseFree: false,
-    isFavorite: false,
   ),
   Meal(
     id: 'm3',
@@ -153,7 +151,6 @@ var dummyMeals = [
     isVegan: false,
     isVegetarian: false,
     isLactoseFree: true,
-    isFavorite: false,
   ),
   Meal(
     id: 'm4',
@@ -189,7 +186,6 @@ var dummyMeals = [
     isVegan: false,
     isVegetarian: false,
     isLactoseFree: false,
-    isFavorite: false,
   ),
   Meal(
     id: 'm5',
@@ -226,7 +222,6 @@ var dummyMeals = [
     isVegan: false,
     isVegetarian: true,
     isLactoseFree: true,
-    isFavorite: false,
   ),
   Meal(
     id: 'm6',
@@ -263,7 +258,6 @@ var dummyMeals = [
     isVegan: false,
     isVegetarian: true,
     isLactoseFree: false,
-    isFavorite: false,
   ),
   Meal(
     id: 'm7',
@@ -295,7 +289,6 @@ var dummyMeals = [
     isVegan: false,
     isVegetarian: true,
     isLactoseFree: false,
-    isFavorite: false,
   ),
   Meal(
     id: 'm8',
@@ -329,7 +322,6 @@ var dummyMeals = [
     isVegan: false,
     isVegetarian: false,
     isLactoseFree: true,
-    isFavorite: true,
   ),
   Meal(
     id: 'm9',
@@ -379,7 +371,6 @@ var dummyMeals = [
     isVegan: false,
     isVegetarian: true,
     isLactoseFree: false,
-    isFavorite: false,
   ),
   Meal(
     id: 'm10',
@@ -414,6 +405,5 @@ var dummyMeals = [
     isVegan: true,
     isVegetarian: true,
     isLactoseFree: true,
-    isFavorite: true,
   ),
 ];
