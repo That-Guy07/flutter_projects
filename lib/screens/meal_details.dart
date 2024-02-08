@@ -1,9 +1,10 @@
+// This file contains the code for the meal details screen.
 import 'package:flutter/material.dart';
 import 'package:meals/models/meal.dart';
-import 'package:meals/widgets/favorite_icon.dart';
+// import 'package:meals/widgets/favorite_icon.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class MealDetailsScreen extends StatelessWidget {
+class MealDetailsScreen extends StatefulWidget {
   const MealDetailsScreen({
     super.key,
     required this.meal,
@@ -12,7 +13,27 @@ class MealDetailsScreen extends StatelessWidget {
   final Meal meal;
 
   @override
+  State<StatefulWidget> createState() {
+    return _MealDetailsScreenState();
+  }
+}
+
+class _MealDetailsScreenState extends State<MealDetailsScreen> {
+  @override
   Widget build(BuildContext context) {
+    final meal = widget.meal;
+    void toggleFavorite() {
+      if (meal.isFavorite) {
+        setState(() {
+          meal.isFavorite = false;
+        });
+      } else {
+        setState(() {
+          meal.isFavorite = true;
+        });
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(meal.title),
@@ -20,10 +41,10 @@ class MealDetailsScreen extends StatelessWidget {
         shadowColor: Theme.of(context).colorScheme.background.withOpacity(0.5),
         actions: [
           IconButton(
-            icon: FavoriteIcon(
-              isFavorite: meal.isFavorite,
+            icon: Icon(
+              meal.isFavorite ? Icons.star : Icons.star_border,
             ),
-            onPressed: () {},
+            onPressed: toggleFavorite,
           ),
         ],
       ),
