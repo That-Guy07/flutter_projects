@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
+
 import 'package:meals/models/meal.dart';
-import 'package:meals/widgets/meal_item.dart';
 import 'package:meals/screens/meal_details.dart';
+import 'package:meals/widgets/meal_item.dart';
 
 class MealsScreen extends StatelessWidget {
   const MealsScreen({
     super.key,
-    required this.title,
+    this.title,
     required this.meals,
-    required this.onTogglefavorite,
+    required this.onToggleFavorite,
   });
 
-  final String title;
+  final String? title;
   final List<Meal> meals;
-  final void Function(Meal meal) onTogglefavorite;
+  final void Function(Meal meal) onToggleFavorite;
 
-  void _switchToMealDetailsScreen(BuildContext context, Meal meal) {
+  void selectMeal(BuildContext context, Meal meal) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => MealDetailsScreen(
+        builder: (ctx) => MealDetailsScreen(
           meal: meal,
-          onTogglefavorite: onTogglefavorite,
+          onToggleFavorite: onToggleFavorite,
         ),
       ),
     );
@@ -28,30 +29,46 @@ class MealsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget content = ListView.builder(
-      itemBuilder: (context, index) => MealItem(
-        meal: meals[index],
-        switchToMealDetailsScreen: () {
-          _switchToMealDetailsScreen(context, meals[index]);
-        },
+    Widget content = Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'Uh oh ... nothing here!',
+            style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onBackground,
+                ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'Try selecting a different category!',
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onBackground,
+                ),
+          ),
+        ],
       ),
-      itemCount: meals.length,
     );
-    if (meals.isEmpty) {
-      content = Center(
-        child: Text(
-          'No meals found for this category.',
-          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                color: Theme.of(context).colorScheme.onBackground,
-              ),
+
+    if (meals.isNotEmpty) {
+      content = ListView.builder(
+        itemCount: meals.length,
+        itemBuilder: (ctx, index) => MealItem(
+          meal: meals[index],
+          onSelectMeal: (meal) {
+            selectMeal(context, meal);
+          },
         ),
       );
     }
+
+    if (title == null) {
+      return content;
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
-        elevation: 8,
-        shadowColor: Theme.of(context).colorScheme.background.withOpacity(0.5),
+        title: Text(title!),
       ),
       body: content,
     );

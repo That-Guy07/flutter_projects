@@ -1,146 +1,90 @@
 import 'package:flutter/material.dart';
+
 import 'package:meals/models/meal.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class MealDetailsScreen extends StatelessWidget {
   const MealDetailsScreen({
     super.key,
     required this.meal,
-    required this.onTogglefavorite,
+    required this.onToggleFavorite,
   });
 
   final Meal meal;
-  final void Function(Meal meal) onTogglefavorite;
+  final void Function(Meal meal) onToggleFavorite;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(meal.title),
-        elevation: 8,
-        shadowColor: Theme.of(context).colorScheme.background.withOpacity(0.5),
-        actions: [
+        appBar: AppBar(title: Text(meal.title), actions: [
           IconButton(
-            icon: const Icon(Icons.star),
             onPressed: () {
-              onTogglefavorite(meal);
+              onToggleFavorite(meal);
             },
-          ),
-        ],
-      ),
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        child: SingleChildScrollView(
+            icon: const Icon(Icons.star),
+          )
+        ]),
+        body: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.symmetric(
-              vertical: 0,
-              horizontal: 20,
+              horizontal: 4,
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Card(
+                  elevation: 2,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(8),
                   ),
                   clipBehavior: Clip.hardEdge,
-                  child: FadeInImage(
-                    placeholder: MemoryImage(kTransparentImage),
-                    image: NetworkImage(meal.imageUrl),
-                    fit: BoxFit.cover,
-                    height: 230,
+                  child: Image.network(
+                    meal.imageUrl,
+                    height: 240,
                     width: double.infinity,
+                    fit: BoxFit.cover,
                   ),
                 ),
-                const SizedBox(height: 30),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Ingredients',
-                          textAlign: TextAlign.left,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge!
-                              .copyWith(
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                        ),
-                        const SizedBox(height: 20),
-                        ...meal.ingredients.map(
-                          (ingredient) => Container(
-                            padding: const EdgeInsets.only(left: 15),
-                            child: Column(
-                              children: [
-                                Text(
-                                  ingredient,
-                                  textAlign: TextAlign.left,
-                                  softWrap: true,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onBackground,
-                                      ),
-                                ),
-                                const SizedBox(height: 7),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 30),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Steps',
-                          textAlign: TextAlign.left,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge!
-                              .copyWith(
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                        ),
-                        const SizedBox(height: 20),
-                        ...meal.steps.map(
-                          (step) => Container(
-                            padding: const EdgeInsets.only(left: 15),
-                            child: Column(
-                              children: [
-                                Text(
-                                  step,
-                                  textAlign: TextAlign.left,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onBackground,
-                                      ),
-                                ),
-                                const SizedBox(height: 7),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
+                const SizedBox(height: 14),
+                Text(
+                  'Ingredients',
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
+                const SizedBox(height: 14),
+                for (final ingredient in meal.ingredients)
+                  Text(
+                    ingredient,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: Theme.of(context).colorScheme.onBackground,
+                        ),
+                  ),
+                const SizedBox(height: 24),
+                Text(
+                  'Steps',
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+                const SizedBox(height: 14),
+                for (final step in meal.steps)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
+                    child: Text(
+                      step,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Theme.of(context).colorScheme.onBackground,
+                          ),
+                    ),
+                  ),
               ],
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

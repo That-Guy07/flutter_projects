@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MealitemTrait extends StatelessWidget {
-  const MealitemTrait({
+class MealItemTrait extends StatelessWidget {
+  const MealItemTrait({
     super.key,
     required this.icon,
     required this.label,
@@ -12,18 +12,19 @@ class MealitemTrait extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(
-          icon,
-          size: 17,
+    return Row(children: [
+      Icon(
+        icon,
+        size: 17,
+        color: Colors.white,
+      ),
+      const SizedBox(width: 6),
+      Text(
+        label,
+        style: const TextStyle(
+          color: Colors.white,
         ),
-        const SizedBox(width: 2),
-        Text(label,
-            style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                  color: Theme.of(context).colorScheme.onBackground,
-                )),
-      ],
-    );
+      ),
+    ]);
   }
 }
